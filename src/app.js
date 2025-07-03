@@ -2,18 +2,42 @@ const express = require("express");
 const app = express();
 
 
-app.get("/",(req,resp)=>{
-    resp.send('this is a home module')
+app.get('/user',(req,resp,next)=>{
+    console.log(req.query)
+  //  resp.send('handler function 1')
+   next()
+},(req,resp,next)=>{
+    console.log(req.query)
+    resp.send('handler function 2')
+})
+app.get(/.*fly$/,(req,resp)=>{
+    console.log(req.query)
+    resp.send({
+        firstName:'aman',
+        lastName:'gaur',
+        age:20,
+        gender:'male'
+    })
 })
 
-app.get("/test",(req,resp)=>{
+
+app.post('/user',(req,resp)=>{
+    console.log('Submitting the data to the users')
+    resp.send('Submitting the data to the users')
+})
+
+
+app.delete('/user',(req,resp)=>{
+    console.log('Deleting the data to the users')
+    resp.send('Deleting the data to the users')
+})
+
+
+app.use("/test",(req,resp)=>{
     resp.send('this is a testing module')
 })
 
 
-app.get("/login",(req,resp)=>{
-    resp.send('this is a login module')
-})
 
 app.listen(
     4000,
