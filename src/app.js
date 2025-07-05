@@ -4,20 +4,22 @@ const connectDb = require('./config/database')
 const User = require('./modal/user')
 
 
-
+app.use(express.json())
 app.post('/signup', async (req,resp)=>{
-    const  userDetails ={
-        firstName : 'aman',
-        lastName : 'gaur',
-        emailId : 'aman@gmail.com',
-        password : 'aman',
-        age : 20,
-        gender : 'male'
-    }
+    // const  userDetails = {
+    //     firstName : 'aman',
+    //     lastName : 'gaur',
+    //     emailId : 'aman@gmail.com',
+    //     password : 'aman',
+    //     age : 20,
+    //     gender : 'male'
+    // }
 
-    const user = new User(userDetails)
+    console.log(req.body)
+
+    const user = new User(req.body)
     await user.save()
-    resp.send('user created')
+    resp.send('new user created')
 })
 
 connectDb().then(()=>{
